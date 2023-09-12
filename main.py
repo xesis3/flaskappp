@@ -1,13 +1,10 @@
-from flask import Flask, jsonify
-import os
+from app import *
+from basicroutes import *
+from authentication import *
 
-app = Flask(__name__)
+with app.app_context():
+    db.create_all()
+    db.session.commit()
 
-
-@app.route('/')
-def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=os.getenv("PORT", default=5000))
+if __name__ == "__main__":
+    app.run(debug = True)
